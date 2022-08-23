@@ -1,14 +1,12 @@
+from typing import Dict, Union, List
+
 from fila_base import FilaBase
+from constantes import CODIGO_PRIORITARIO
 
 
 class FilaPrioritaria(FilaBase):
-    codigo: int = 0
-    fila: list = []
-    clientes_atendidos: list = []
-    senha_atual: str = ''
-
     def gera_senha_atual(self) -> None:
-        self.senha_atual = f'PR{self.codigo}'
+        self.senha_atual = f'{CODIGO_PRIORITARIO}-{self.codigo}'
 
     def chama_cliente(self, caixa: int) -> list:
         display: list = []
@@ -24,9 +22,10 @@ class FilaPrioritaria(FilaBase):
         return display
 
     def estatistica(self, dia: str, agencia: str, flag: str) -> dict:
-        estatistica: dict = {}
+        estatistica: Dict[str, Union[List[str], str, int]] = {}
+
         if flag != 'detail':
-            estatistica = {f'{agencia} - {dia}': len(self.clientes_atendidos)}
+            estatistica[f'{agencia} - {dia}'] = len(self.clientes_atendidos)
         else:
             estatistica['dia'] = dia
             estatistica['agencia'] = agencia

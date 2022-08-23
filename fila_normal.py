@@ -1,16 +1,12 @@
 from fila_base import FilaBase
+from constantes import CODIGO_NORMAL
 
 
 class FilaNormal(FilaBase):
-    codigo: int = 0
-    fila: list = []
-    clintes_atendidos: list = []
-    senha_atual: str = ''
-
     def gera_senha_atual(self) -> None:
-        self.senha_atual = f'NM{self.codigo}'
+        self.senha_atual = f'{CODIGO_NORMAL}-{self.codigo}'
 
     def chama_cliente(self, caixa) -> str:
         cliente_atual = self.fila.pop(0)
-        self.clintes_atendidos.append(cliente_atual)
+        self.clientes_atendidos.append(cliente_atual)
         return f'Cliente atual: {cliente_atual}, dirija-se ao caixa {caixa}'
