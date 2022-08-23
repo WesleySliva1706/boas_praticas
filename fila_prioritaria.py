@@ -1,7 +1,12 @@
-from typing import Dict, Union, List
+# from typing import Dict, Union, List
+from typing import Union
 
 from fila_base import FilaBase
 from constantes import CODIGO_PRIORITARIO
+from estatistica_resumida import EstatisticaResumida
+from estatistica_detalhada import EstatisticaDetalhada
+
+Classes = Union[EstatisticaResumida, EstatisticaDetalhada]
 
 
 class FilaPrioritaria(FilaBase):
@@ -21,16 +26,21 @@ class FilaPrioritaria(FilaBase):
 
         return display
 
-    def estatistica(self, dia: str, agencia: str, flag: str) -> dict:
-        estatistica: Dict[str, Union[List[str], str, int]] = {}
+    # def estatistica(self, dia: str, agencia: str, flag: str) -> dict:
+    #     estatistica: Dict[str, Union[List[str], str, int]] = {}
+    #
+    #     if flag != 'detail':
+    #         estatistica[f'{agencia} - {dia}'] = len(self.clientes_atendidos)
+    #     else:
+    #         estatistica['dia'] = dia
+    #         estatistica['agencia'] = agencia
+    #         estatistica['clientes atendidos'] = self.clientes_atendidos
+    #         estatistica['quantidade de clientes atendidos'] = (
+    #             len(self.clientes_atendidos))
+    #
+    #     return estatistica
 
-        if flag != 'detail':
-            estatistica[f'{agencia} - {dia}'] = len(self.clientes_atendidos)
-        else:
-            estatistica['dia'] = dia
-            estatistica['agencia'] = agencia
-            estatistica['clientes atendidos'] = self.clientes_atendidos
-            estatistica['quantidade de clientes atendidos'] = (
-                len(self.clientes_atendidos))
+    # Injeção de Dependências
 
-        return estatistica
+    def estatistica(self, retorna_estatistica: Classes) -> dict:
+        return retorna_estatistica.roda_estatistica(self.clientes_atendidos)

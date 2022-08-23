@@ -28,3 +28,6 @@ class FilaBase(metaclass=abc.ABCMeta):
         self.reseta_fila()
         self.gera_senha_atual()
         self.fila.append(self.senha_atual)
+
+    def inserir_cliente(self) -> None:
+        self.fila.append(self.senha_atual)
